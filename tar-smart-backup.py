@@ -321,7 +321,7 @@ def restore(args):
     snap = ''
     for filename in found:
         parts = list(parse_filename(args.name, filename))
-        snap = "snar-{}".format(len(parts))
+        snap = "{}-snar-{}".format(args.name, len(parts))
         snap = os.path.join(args.src, snap)
         file_path = os.path.join(args.src, filename)
         command = TAR_COMMAND_RESTORE.format(
