@@ -42,10 +42,10 @@ Make backup named "mybackup":
 python tar-smart-backup.py "mybackup" backup /var/www/media --dst=/var/backups
 ```
 
-Backup with syncing to remote server:
+Backup with syncing to remote server `backup@backup.internal:/backup`:
 
 ```bash
-SYNC_OPTS=--sync --ssh-key-rsa=/home/user/some_id_rsa --ssh-host=backup.internal
+SYNC_OPTS="--sync --ssh-user=backup --ssh-key-rsa=/home/user/some_id_rsa --ssh-host=backup.internal --remote-dir=/backups"
 python tar-smart-backup.py $SYNC_OPTS "mybackup" backup /var/www/media --dst=/var/backups
 ```
 
@@ -59,10 +59,10 @@ Restore backup named "mybackup" stored in `/var/backups` to `/var/www/media`:
 python tar-smart-backup.py "mybackup" restore /var/www/media --src=/var/backups
 ```
 
-Restore backup named "mybackup" from remote backup server `backup.internal` to `/var/www/media`, where `/var/backups` temp folder:
+Restore backup named "mybackup" from remote backup server `backup@backup.internal:/backup` to `/var/www/media`, where `/var/backups` temp folder:
 
 ```bash
-SYNC_OPTS=--sync --ssh-key-rsa=/home/user/some_id_rsa --ssh-host=backup.internal
+SYNC_OPTS="--sync --ssh-user=backup --ssh-key-rsa=/home/user/some_id_rsa --ssh-host=backup.internal --remote-dir=/backups"
 python tar-smart-backup.py $SYNC_OPTS "mybackup" backup /var/www/media --dst=/var/backups
 ```
 
