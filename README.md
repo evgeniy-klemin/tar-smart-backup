@@ -69,11 +69,18 @@ python tar_smart_backup.py $SYNC_OPTS "mybackup" backup /var/www/media --dst=/va
 Options
 =======
 
+Backup options
+--------------
+
 `--count` - How much backups make in each level(depth)
 
 `--levels` - How much tar LEVEL-1 depth create
 
 With --levels=3 --count=3 (five times calls):
+
+```bash
+python tar_smart_backup.py "mybackup" backup /var/www/media --dst=/var/backups --levels=3 --count=3
+```
 
 * mybackup.tar.gz - tar LEVEL-0
 * mybackup_01.tar.gz - tar LEVEL-1 depth=1
