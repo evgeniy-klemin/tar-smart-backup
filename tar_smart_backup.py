@@ -38,9 +38,7 @@ class DefaultHelpParser(argparse.ArgumentParser):
         sys.exit(2)
 
 
-def main():
-    """Main"""
-
+def create_argparse():
     parser = DefaultHelpParser(description='Backup directory.')
     parser.add_argument('name', help='Name of backup')
     parser.add_argument('--sync', action='store_true',
@@ -65,7 +63,13 @@ def main():
     parser_restore = subparsers.add_parser('restore', help='Restore')
     parser_restore.add_argument('dst', help='Directory for extract (destination)')
     parser_restore.add_argument('--src', default='.', help='Where hold backups')
+    return parser
 
+
+def main():
+    """Main"""
+
+    parser = create_argparse()
     args = parser.parse_args()
 
     if args.action == 'backup':
@@ -414,7 +418,6 @@ def remote_find_files(client, args):
 def download_files(args):
     """Download backup files from remote server through sftp
     """
-    name = args.name
     with get_ssh_client(args) as c:
         found = remote_find_files(c, args)
         with c.open_sftp() as sftp:
