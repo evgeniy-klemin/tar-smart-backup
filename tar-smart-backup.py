@@ -147,12 +147,28 @@ def backup_incremental(args, levels):
 
 
 def is_snap(name, filename):
+    """Test is snap file
+
+    >>> is_snap('mybackup', 'mybackup-snar-0')
+    True
+
+    >>> is_snap('mybackup', 'mybackup-snar-1')
+    True
+    """
     ln = len(name)
     return filename[:ln] == name\
-        and filename[ln + 1:ln + 1 + len('-snar-')] == '-snar-'
+        and filename[ln:ln + len('-snar-')] == '-snar-'
 
 
 def is_arch(name, filename):
+    """Test is arch(snapshot) file
+
+    >>> is_arch('mybackup', 'mybackup.tar.gz')
+    True
+
+    >>> is_arch('mybackup', 'mybackup_01.tar.gz')
+    True
+    """
     ln = len(name)
     return filename[:len(name)] == name and filename[-len(EXT):] == EXT
 
@@ -190,6 +206,9 @@ def parse_filename(name, filename):
         >>> list(parse_filename('data', 'data_01_03.tar.gz'))
         [(0, 1), (1, 3)]
 
+        >>> list(parse_filename('data', 'data_02_05_01.tar.gz'))
+        [(0, 2), (1, 5), (2, 1)]
+
     Yields:
         tuple(int, int)
     """
@@ -217,7 +236,7 @@ def scan_dir(name, destination_dir):
             data_01_02.tar.gz
             data_01_03.tar.gz
 
-        >>> scan_dir('data', destination_dir)
+        scan_dir('data', destination_dir)
         [1, 3]
 
         1: LEVEL-1 depth=1 num=1
