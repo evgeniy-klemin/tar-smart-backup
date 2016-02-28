@@ -405,7 +405,7 @@ def remote_find_files(client, args):
     stdin.close()
     res = stdout.read()
     logger.debug("SSH result: {}".format(res.splitlines()))
-    files = res.splitlines()
+    files = [filename.decode('utf-8') for filename in res.splitlines()]
     arch_files = sorted(
         filename for filename in files if is_arch(name, filename)
     )
