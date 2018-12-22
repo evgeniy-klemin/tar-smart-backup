@@ -1,1 +1,1 @@
-paramiko~=1.17.6
+paramiko~=2.0.9
